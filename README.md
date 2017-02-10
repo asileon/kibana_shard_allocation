@@ -1,0 +1,3 @@
+# Elasticsearch Shards Allocation Visualization
+
+---

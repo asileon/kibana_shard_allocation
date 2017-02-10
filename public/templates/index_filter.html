@@ -1,0 +1,27 @@
+<div class="shardAllocation__filterOptions">
+  <input
+    type="text"
+    placeholder="index filtering.."
+    ng-model="f.name"
+  />
+  <br />
+  <label>
+    <input
+      type="checkbox"
+      data-ng-model="f.is_system"
+      data-ng-true-value="false"
+      data-ng-false-value=""
+    />
+    Hide system indices
+  </label>
+  <br />
+  <label>
+    <input
+      type="checkbox"
+      data-ng-model="n.has_shards"
+      data-ng-true-value="true"
+      data-ng-false-value=""
+    />
+    Hide nodes without shards
+  </label>
+</div>

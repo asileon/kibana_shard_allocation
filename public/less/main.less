@@ -1,0 +1,129 @@
+.shardAllocation {
+
+  .localNav {
+    min-height: 0px;
+  }
+
+  .localNavRow--secondary {
+    height: 8px;
+  }
+
+  .localTitle {
+    align-items: center;
+    padding-left: 10px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+}
+
+.shardAllocation__filterOptions {
+
+  input[type="text"] {
+    margin-bottom: 5px;
+    width: 200px;
+  }
+
+  label {
+    font-weight: inherit;
+
+    input {
+      margin-right: 5px;
+    }
+  }
+}
+
+.shardAllocation__legentContainer {
+  margin-top: 30px;
+  padding-left: 15px;
+
+  .shardAllocation__legendTitle {
+    font-size: 20px;
+    margin: 0;
+  }
+
+  .shardAllocation__legend {
+    .shardAllocation__shard {
+      float: none;
+      display: inline-block;
+      margin-left: 15px;
+      padding: 0 4px;
+      width: 12px;
+      height: 12px;
+      line-height: 5px;
+    }
+
+    .shardAllocation__shardLabel {
+      font-size: 9pt;
+      background-color: #fff;
+      color: #232123;
+    }
+  }
+}
+
+.shardAllocation__tableContainer {
+  width: 100%;
+  overflow-x: auto;
+  padding-left: 15px;
+
+  table {
+    white-space: nowrap;
+
+    thead {
+      td {
+        vertical-align: bottom;
+      }
+    }
+
+    tbody {
+      td {
+        vertical-align: middle;
+
+
+      }
+    }
+  }
+}
+
+.shardAllocation__shard {
+  box-sizing: border-box;
+  color: white;
+  cursor: default;
+  float: left;
+  width: 30px;
+  margin: 2px;
+  border: 1px solid #444;
+  padding: 2px;
+  font-size: 20px;
+  line-height: 25px;
+  text-align: center;
+  letter-spacing: -1px;
+  text-indent: -1px;
+
+  &.primary {
+    background-color: #0d5a77;
+
+    &.unassigned {
+      background-color: #e74c3c!important;
+    }
+  }
+
+  &.replica {
+    background-color: #5698ab;
+
+    &.unassigned {
+      background-color: #a3a5ad!important;
+    }
+  }
+
+  &.initializing {
+    background-color: #5c71ce!important;
+  }
+
+  &.relocating {
+    background-color: #663db8!important;
+
+    &.relocating_to {
+      opacity: 0.3;
+    }
+  }
+}

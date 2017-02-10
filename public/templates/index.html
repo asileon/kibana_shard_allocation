@@ -1,0 +1,98 @@
+<div class="shardAllocation">
+  <kbn-top-nav
+    name="myappname"
+    config="topNavMenu"
+  >
+    <div data-transclude-slots>
+      <!-- Title. -->
+      <div
+        data-transclude-slot="topLeftCorner"
+        class="localTitle"
+      >
+        Shard Allocation
+      </div>
+    </div>
+  </kbn-top-nav>
+
+  <div
+    class="shardAllocation__legentContainer"
+    ng-show="ctrl.first_load"
+  >
+    <h1 class="shardAllocation__legendTitle">Shard Legend</h1>
+    <div class="shardAllocation__legend">
+      <span class="shardAllocation__shard primary">&nbsp;</span>
+      <span class="shardAllocation__shardLabel">Primary</span>
+      <span class="shardAllocation__shard replica">&nbsp;</span>
+      <span class="shardAllocation__shardLabel">Replica</span>
+      <span class="shardAllocation__shard relocating">&nbsp;</span>
+      <span class="shardAllocation__shardLabel">Relocating</span>
+      <span class="shardAllocation__shard initializing">&nbsp;</span>
+      <span class="shardAllocation__shardLabel">Initializing</span>
+      <span class="shardAllocation__shard unassigned primary">&nbsp;</span>
+      <span class="shardAllocation__shardLabel">Unassigned Primary</span>
+      <span class="shardAllocation__shard unassigned replica">&nbsp;</span>
+      <span class="shardAllocation__shardLabel">Unassigned Replica</span>
+    </div>
+  </div>
+  <br />
+  <div
+    class="shardAllocation__tableContainer"
+    ng-show="ctrl.first_load"
+  >
+    <table class="table table-striped table-condensed table-bordered">
+      <thead>
+      <tr>
+        <td>
+        </td>
+        <td ng-if="ctrl.has_unassigned_shards">
+          Unassigned
+        </td>
+        <td ng-repeat="node in ctrl.nodes | filter:n">
+          <a href="monitoring#/elasticsearch/nodes/{{ node.id }}?_g=(cluster_uuid:'{{ ctrl.cluster_uuid }}')">{{ node.name }}</a>
+        </td>
+      </tr>
+      </thead>
+      <tbody ng-init="f.is_system=false; n.has_shards=true">
+      <tr ng-repeat="index in ctrl.closed_indices | filter:f">
+        <td>
+          <a href="monitoring#/elasticsearch/indices/{{ index.name }}?_g=(cluster_uuid:'{{ ctrl.cluster_uuid }}')">{{ index.name }}</a>
+          <br />
+          closed index
+        </td>
+        <td ng-if="ctrl.has_unassigned_shards" />
+        <td ng-repeat="node in ctrl.nodes | filter:n" />
+      </tr>
+      <tr ng-repeat="index in ctrl.indices | filter:f">
+        <td>
+          <a href="monitoring#/elasticsearch/indices/{{ index.name }}?_g=(cluster_uuid:'{{ ctrl.cluster_uuid }}')">{{ index.name }}</a>
+        </td>
+        <td ng-if="ctrl.has_unassigned_shards">
+          <div
+            ng-repeat="shard in index.unassigned_shards"
+            ng-class="{shardAllocation__shard: true,
+                       unassigned: true,
+                       primary: shard.primary,
+                       replica: shard.primary === false}">
+            {{ shard.shard }}
+          </div>
+        </td>
+        <td ng-repeat="node in ctrl.nodes | filter:n">
+          <div
+            ng-repeat="i in getNumber(index.max_shard+1) track by $index"
+            ng-if="index.shards[node.id][$index] !== undefined"
+            ng-class="{shardAllocation__shard: true,
+                       primary: index.shards[node.id][$index].primary,
+                       replica: index.shards[node.id][$index].primary === false,
+                       relocating: index.shards[node.id][$index].relocating_node !== null,
+                       relocating_to: index.shards[node.id][$index].relocating_node === node.id,
+                       initializing: index.shards[node.id][$index].recovery_source !== undefined}"
+          >
+            {{ $index }}
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
