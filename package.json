@@ -1,6 +1,6 @@
 {
   "name": "shard_allocation",
-  "version": "5.1.1",
+  "version": "5.1.2",
   "description": "Elasticsearch Shards Allocation Visualization",
   "main": "index.js",
   "scripts": {
