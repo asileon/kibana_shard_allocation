@@ -1,6 +1,8 @@
 # Elasticsearch Shards Allocation Visualization
 A kibana plugin adding app that visualize elasticsearch shard allocation
 
+![image](screenshots/main.png)
+
 ## Compatibility
 This plugin support kibana 5. check [releases](https://github.com/asileon/kibana_shard_allocation/releases) for the tested versions.
 
