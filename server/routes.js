@@ -1,12 +1,12 @@
 export default function (server) {
 
-  let call = server.plugins.elasticsearch.callWithRequest;
+  const { callWithRequest } = server.plugins.elasticsearch.getCluster('data');
 
   server.route({
     path: '/api/shard_allocation/overview',
     method: 'GET',
     handler(req, reply) {
-      call(req, 'cluster.state', {metric: ['nodes','routing_table', 'metadata']}).then(response => reply(response));
+      callWithRequest(req, 'cluster.state', {metric: ['nodes','routing_table', 'metadata']}).then(response => reply(response));
     }
   });
 };
